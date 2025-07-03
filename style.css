@@ -1,7 +1,8 @@
 :root {
   --bg: #000;
   --fg: #fff;
-  --accent: #39ff14; /* neon green */
+  --accent: #39ff14;
+  --accent-hover: #2cd80f;
 }
 
 /* Reset */
@@ -16,6 +17,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   line-height: 1.6;
+  scroll-behavior: smooth;
 }
 
 .container {
@@ -35,10 +37,19 @@ body {
   background: #111;
   border-bottom: 2px solid #222;
   padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .logo {
   height: 60px;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 5px var(--accent));
 }
 
 .menu a {
@@ -47,6 +58,7 @@ body {
   position: relative;
   font-weight: 600;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .menu a:hover,
@@ -62,7 +74,7 @@ body {
   width: 0;
   height: 2px;
   background: var(--accent);
-  transition: width 0.3s;
+  transition: width 0.3s ease;
 }
 
 .menu a:hover::after,
@@ -70,118 +82,199 @@ body {
   width: 100%;
 }
 
-/* Hero */
+/* Hero Section */
 .hero {
   position: relative;
   height: 70vh;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.35;
-  filter: grayscale(100%);
+  filter: grayscale(100%) brightness(0.35);
+  z-index: 1;
+  transition: transform 0.5s ease;
+}
+
+.hero:hover .hero-bg {
+  transform: scale(1.05);
 }
 
 .hero-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  z-index: 2;
   text-align: center;
+  color: var(--fg);
+  max-width: 800px;
+  padding: 0 1rem;
 }
 
 .hero-content h1 {
-  font-size: 2.8rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
+  text-shadow: 0 0 10px var(--accent);
+  animation: glow 2.5s infinite alternate;
 }
 
 .accent {
   color: var(--accent);
 }
 
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
 /* Buttons */
 .btn {
   display: inline-block;
-  padding: 0.9rem 1.8rem;
+  padding: 1rem 2rem;
   font-weight: 700;
-  border-radius: 4px;
+  border-radius: 6px;
   text-decoration: none;
-  transition: all 0.3s;
   cursor: pointer;
-}
-
-.accent-border {
   border: 2px solid var(--accent);
   color: var(--fg);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px var(--accent);
 }
 
-.accent-border:hover {
-  background: var(--accent);
-  color: #000;
-  box-shadow: 0 0 10px var(--accent);
-}
-
-.accent-fill {
+.btn.accent-fill {
   background: var(--accent);
   color: #000;
   border: 2px solid transparent;
+  box-shadow: 0 0 10px var(--accent);
 }
 
-.accent-fill:hover {
-  filter: brightness(1.1);
+.btn:hover {
+  color: #000;
+  background: var(--accent-hover);
+  box-shadow: 0 0 15px var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
-/* Grid & Cards */
+/* Sections */
+main {
+  padding: 3rem 0 5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent);
+}
+
+h1 {
+  font-size: 2.6rem;
+  margin-bottom: 2rem;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent);
+}
+
+/* Grid and Cards */
 .grid-3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  margin: 3rem 0;
+  margin-bottom: 3rem;
 }
 
 .card {
   background: #111;
   padding: 2rem;
+  border-radius: 8px;
   border: 1px solid #222;
-  border-radius: 6px;
-  transition: all 0.3s;
+  box-shadow: 0 0 5px #111;
+  transition: all 0.3s ease;
+  text-align: center;
 }
 
 .card:hover {
   border-color: var(--accent);
-  box-shadow: 0 0 10px var(--accent);
+  box-shadow: 0 0 20px var(--accent);
 }
 
-/* Small gallery */
+/* Texto */
+.sobre p,
+.infraestrutura p,
+.corpo-docente p,
+.eventos p,
+.diferenciais ul,
+.festas-juninas p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  color: #ccc;
+}
+
+/* Listas */
+.diferenciais ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.diferenciais ul li {
+  padding-left: 1.2rem;
+  position: relative;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.diferenciais ul li::before {
+  content: '✔';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* Galeria */
 .galeria-pequena {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 2rem;
   justify-content: center;
   margin: 2.5rem 0;
 }
 
 .galeria-pequena figure {
   width: calc(50% - 1rem);
-  text-align: center;
+  border: 3px solid var(--accent);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  background: #111;
+}
+
+.galeria-pequena figure:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--accent);
 }
 
 .galeria-pequena img {
   width: 100%;
-  border: 3px solid var(--accent);
-  border-radius: 4px;
+  display: block;
 }
 
 .galeria-pequena figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: #ccc;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #bbb;
+  text-align: center;
+  background: #222;
 }
 
-/* Image blocks */
+/* Imagem central */
 .image-block {
   margin: 3rem 0;
   text-align: center;
@@ -189,34 +282,53 @@ body {
 
 .image-block img {
   width: 80%;
+  max-width: 600px;
   border: 4px solid var(--accent);
-  border-radius: 4px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px var(--accent);
 }
 
 .image-block figcaption {
   margin-top: 0.5rem;
-  color: #ccc;
+  color: #aaa;
   font-size: 0.9rem;
 }
 
-/* Footer */
+/* Rodapé */
 .footer {
   background: #111;
   text-align: center;
-  padding: 1rem 0;
-  color: #888;
+  padding: 1.5rem 0;
+  color: #666;
   font-size: 0.9rem;
+  border-top: 1px solid #222;
 }
 
-/* Responsive */
+/* Animação */
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px var(--accent);
+  }
+  100% {
+    text-shadow: 0 0 20px var(--accent);
+  }
+}
+
+/* Responsivo */
 @media (max-width: 768px) {
   .hero-content h1 {
     font-size: 2rem;
   }
+
   .menu a {
     margin-left: 1rem;
   }
+
   .galeria-pequena figure {
     width: 100%;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr;
   }
 }
