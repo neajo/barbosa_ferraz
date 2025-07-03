@@ -7,6 +7,103 @@
   <title>Colégio Barbosa Feras de Ivaiporá - Início</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* --- Estilos básicos do chatbot --- */
+    #chatbot {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      max-height: 420px;
+      background: #111;
+      border: 2px solid #00bfff;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00bfff;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Barlow', sans-serif;
+      color: #eee;
+      overflow: hidden;
+      z-index: 9999;
+    }
+    #chatbot header {
+      background: #00bfff;
+      padding: 12px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    #chatbot .messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #222;
+      font-size: 0.9rem;
+    }
+    #chatbot .messages .message {
+      margin-bottom: 10px;
+      max-width: 75%;
+      padding: 8px 12px;
+      border-radius: 15px;
+      clear: both;
+      opacity: 0;
+      animation: fadeInUp 0.3s forwards;
+    }
+    #chatbot .messages .user {
+      background: #00bfff;
+      color: #000;
+      float: right;
+      border-bottom-right-radius: 0;
+    }
+    #chatbot .messages .bot {
+      background: #444;
+      color: #eee;
+      float: left;
+      border-bottom-left-radius: 0;
+    }
+    #chatbot footer {
+      padding: 8px 10px;
+      background: #111;
+      display: flex;
+      border-top: 1px solid #00bfff;
+    }
+    #chatbot input[type="text"] {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 20px;
+      font-size: 1rem;
+      outline: none;
+      background: #222;
+      color: #eee;
+    }
+    #chatbot button {
+      background: #00bfff;
+      border: none;
+      color: #000;
+      font-weight: 700;
+      padding: 0 15px;
+      margin-left: 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #chatbot button:hover {
+      background: #008ccc;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="header">
@@ -109,7 +206,8 @@
       <div class="card item">
         <h3>Ingresso Festa Junina</h3>
         <p>Entrada individual válida para 22 de junho.</p>
-        <p class="price">R$ 15,00</p>
+        <p class="price">R$ 25,00</p>
+        <p class="price discount">R$ 30,00 (com desconto)</p>
         <a href="#form-compra" class="btn">Comprar</a>
       </div>
 
@@ -145,8 +243,8 @@
       <div class="field">
         <label for="produto">Produto</label>
         <select id="produto" name="Produto">
-          <option value="Ingresso Festa Junina">Ingresso Festa Junina – R$ 15,00</option>
-          <option value="Kit Quentão & Pipoca">Kit Quentão &amp; Pipoca – R$ 12,00</option>
+          <option value="Ingresso Festa Junina">Ingresso Festa Junina – R$ 25,00</option>
+          <option value="Kit Quentão &amp; Pipoca">Kit Quentão &amp; Pipoca – R$ 12,00</option>
           <option value="Camiseta Oficial">Camiseta Oficial – R$ 40,00</option>
         </select>
       </div>
@@ -159,7 +257,7 @@
       <button type="submit" class="btn accent-fill">Enviar Pedido</button>
     </form>
 
-    <p class="contato">Dúvidas? Fale com a gente: <strong>nearneaj@gmail.com</strong></p>
+    <p class="contato">Dúvidas? Fale com a gente: <strong>nearneaj@gmail.com</strong> | Tel: <strong>43 96017-028</strong></p>
   </section>
   <!-- /CENTRAL DE COMPRAS -->
 
@@ -168,5 +266,106 @@
       <small>&copy; 2025 Colégio Barbosa Feras de Ivaiporá. Todos os direitos reservados.</small>
     </div>
   </footer>
+
+  <!-- Chatbot -->
+  <div id="chatbot">
+    <header id="chatbot-header">Assistente Barbosa &#x25B2;</header>
+    <div class="messages" id="chatbot-messages"></div>
+    <footer>
+      <input type="text" id="chatbot-input" placeholder="Digite sua mensagem..." autocomplete="off" />
+      <button id="chatbot-send">Enviar</button>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      const chatbot = document.getElementById('chatbot');
+      const header = document.getElementById('chatbot-header');
+      const messages = document.getElementById('chatbot-messages');
+      const input = document.getElementById('chatbot-input');
+      const sendBtn = document.getElementById('chatbot-send');
+
+      // Toggle chat visibility
+      let open = true;
+      header.addEventListener('click', () => {
+        open = !open;
+        if(open){
+          chatbot.style.height = '420px';
+          messages.style.display = 'block';
+          input.style.display = 'inline-block';
+          sendBtn.style.display = 'inline-block';
+          header.innerHTML = 'Assistente Barbosa &#x25B2;';
+        } else {
+          chatbot.style.height = '40px';
+          messages.style.display = 'none';
+          input.style.display = 'none';
+          sendBtn.style.display = 'none';
+          header.innerHTML = 'Assistente Barbosa &#x25BC;';
+        }
+      });
+
+      // Scroll messages to bottom
+      function scrollToBottom(){
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      // Add message to chat
+      function addMessage(text, sender='bot'){
+        const msg = document.createElement('div');
+        msg.classList.add('message', sender);
+        msg.textContent = text;
+        messages.appendChild(msg);
+        scrollToBottom();
+      }
+
+      // Bot responses simples
+      function botResponse(text){
+        const msg = text.toLowerCase();
+        if(msg.includes('oi') || msg.includes('olá') || msg.includes('ola')){
+          return 'Olá! Como posso ajudar você hoje?';
+        }
+        if(msg.includes('ingresso')){
+          return 'O ingresso para a Festa Junina custa R$ 25,00 (R$ 30,00 com desconto).';
+        }
+        if(msg.includes('horário')){
+          return 'Nosso colégio funciona de segunda a sexta, das 7h às 17h.';
+        }
+        if(msg.includes('contato') || msg.includes('telefone') || msg.includes('telefone')){
+          return 'Você pode nos contatar pelo e-mail nearneaj@gmail.com ou pelo telefone 43 96017-028.';
+        }
+        if(msg.includes('festa') || msg.includes('junina')){
+          return 'Nossa Festa Junina é uma tradição anual com muita música, comida típica e diversão para toda a família!';
+        }
+        if(msg.includes('comprar')){
+          return 'Para comprar ingressos e produtos oficiais, vá até a seção "Central de Compras" nesta página.';
+        }
+        return 'Desculpe, não entendi. Pode reformular sua pergunta?';
+      }
+
+      // Enviar mensagem
+      function sendMessage(){
+        const userText = input.value.trim();
+        if(userText === '') return;
+        addMessage(userText, 'user');
+        input.value = '';
+        // Simula resposta com delay pra parecer mais natural
+        setTimeout(() => {
+          const response = botResponse(userText);
+          addMessage(response, 'bot');
+        }, 600);
+      }
+
+      sendBtn.addEventListener('click', sendMessage);
+      input.addEventListener('keypress', e => {
+        if(e.key === 'Enter'){
+          sendMessage();
+        }
+      });
+
+      // Mensagem inicial do bot
+      addMessage('Olá! Eu sou o assistente do Colégio Barbosa. Pergunte algo ou diga "Oi".', 'bot');
+
+    })();
+  </script>
 </body>
 </html>
