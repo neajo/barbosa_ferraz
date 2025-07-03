@@ -1,47 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escola Barbosa - Página Inicial</title>
-    <link rel="stylesheet" href="estilo.css">
+  <meta charset="UTF-8" />
+  <meta http‑equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colégio Barbosa • Início</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="imagens/logobarbosa.png" alt="Logo da Escola Barbosa" class="logo">
+  <header class="header">
+    <div class="container flex">
+      <img src="logobarbosa.png" alt="Logo Colégio Barbosa" class="logo" />
+      <nav class="menu">
+        <a href="index.html" class="active">Início</a>
+        <a href="pagina2.html">Nossa História</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="faixada.jpg" alt="Faixada do Colégio" class="hero-bg" />
+    <div class="hero-content container">
+      <h1>Bem‑vindo ao <span class="accent">Colégio Barbosa</span></h1>
+      <p>Excelência em educação desde 1975.</p>
+      <a href="#sobre" class="btn accent-border">Saiba Mais</a>
+    </div>
+  </section>
+
+  <main id="sobre" class="container">
+    <section class="sobre">
+      <h2>Por que escolher o Barbosa?</h2>
+      <p>Unimos tradição e inovação para preparar cada aluno para os desafios do futuro.</p>
+      <div class="grid-3 destaque">
+        <div class="card">
+          <h3>Ensino de Qualidade</h3>
+          <p>Corpo docente experiente e comprometido.</p>
         </div>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="pagina2.html">Sobre Nós</a></li>
-            </ul>
-        </nav>
-    </header>
+        <div class="card">
+          <h3>Atividades Extras</h3>
+          <p>Esportes, robótica, artes e muito mais.</p>
+        </div>
+        <div class="card">
+          <h3>Resultados</h3>
+          <p>+90% de aprovação em vestibulares.</p>
+        </div>
+      </div>
+      <a href="pagina2.html" class="btn accent-fill">Nossa História</a>
+    </section>
+  </main>
 
-    <main>
-        <section class="banner">
-            <img src="imagens/faixada.jpg" alt="Faixada da Escola Barbosa">
-        </section>
-
-        <section class="conteudo">
-            <h1>Bem-vindo à Escola Barbosa</h1>
-            <p>A Escola Barbosa é uma instituição de ensino comprometida com a excelência acadêmica e o desenvolvimento integral dos alunos. Fundada em 1985, temos orgulho de nossa tradição educacional combinada com abordagens inovadoras.</p>
-            
-            <div class="imagem-texto">
-                <img src="imagens/arraia.jpg" alt="Evento cultural na escola">
-                <div>
-                    <h2>Eventos Culturais</h2>
-                    <p>Nossa escola promove diversos eventos culturais ao longo do ano, incluindo festivais, apresentações artísticas e competições esportivas, proporcionando uma educação completa e diversificada.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2023 Escola Barbosa. Todos os direitos reservados.</p>
-        <p>Endereço: Rua da Educação, 123 - Centro - Cidade/Estado</p>
-        <p>Telefone: (00) 1234-5678 | Email: contato@escolabarbosa.edu.br</p>
-    </footer>
+  <footer class="footer">
+    <div class="container">
+      <small>&copy; 2025 Colégio Barbosa. Todos os direitos reservados.</small>
+    </div>
+  </footer>
 </body>
 </html>
