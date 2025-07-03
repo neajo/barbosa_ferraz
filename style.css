@@ -1,8 +1,8 @@
 :root {
   --bg: #000;
   --fg: #fff;
-  --accent: #39ff14;
-  --accent-hover: #2cd80f;
+  --accent: #00bfff; /* azul neon brilhante */
+  --accent-hover: #00a2e8;
 }
 
 /* Reset */
