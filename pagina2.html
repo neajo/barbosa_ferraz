@@ -1,65 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escola Barbosa - Sobre Nós</title>
-    <link rel="stylesheet" href="estilo.css">
+  <meta charset="UTF-8" />
+  <meta http‑equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colégio Barbosa • Nossa História</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="imagens/logobarbosa.png" alt="Logo da Escola Barbosa" class="logo">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="pagina2.html" class="active">Sobre Nós</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="header">
+    <div class="container flex">
+      <img src="logobarbosa.png" alt="Logo Colégio Barbosa" class="logo" />
+      <nav class="menu">
+        <a href="index.html">Início</a>
+        <a href="pagina2.html" class="active">Nossa História</a>
+      </nav>
+    </div>
+  </header>
 
-    <main>
-        <section class="conteudo">
-            <h1>Sobre a Escola Barbosa</h1>
-            
-            <div class="imagem-texto">
-                <img src="imagens/bursuk_lindo.jpg" alt="Nossa equipe">
-                <div>
-                    <h2>Nossa História</h2>
-                    <p>Fundada em 1985, a Escola Barbosa nasceu do sonho de oferecer educação de qualidade para a comunidade local. Ao longo dos anos, crescemos e nos tornamos referência em educação na região.</p>
-                </div>
-            </div>
+  <main class="container historia">
+    <h1>Nossa História</h1>
+    <p>Fundado em 1975, o Colégio Barbosa cresce a cada dia investindo em inovação e carinho.</p>
+    <figure class="image-block">
+      <img src="arraia.jpg" alt="Festa Junina no Colégio" />
+      <figcaption>Arraiá do Barbosa – tradição que une família e escola.</figcaption>
+    </figure>
+    <figure class="image-block">
+      <img src="bursuk_lindo.jpg" alt="Alunos em atividade" />
+      <figcaption>Projetos que inspiram curiosidade e criatividade.</figcaption>
+    </figure>
+    <p>Hoje oferecemos laboratórios modernos, biblioteca completa e programas de intercâmbio.</p>
+    <a href="index.html" class="btn accent-border voltar">Voltar ao Início</a>
+  </main>
 
-            <h2>Nossa Missão</h2>
-            <p>Promover o desenvolvimento integral dos alunos através de uma educação de qualidade, formando cidadãos críticos, criativos e éticos, capazes de transformar a sociedade.</p>
-
-            <h2>Nossos Valores</h2>
-            <ul class="valores">
-                <li>Ética e transparência</li>
-                <li>Respeito à diversidade</li>
-                <li>Compromisso com a excelência</li>
-                <li>Inovação educacional</li>
-                <li>Responsabilidade social</li>
-            </ul>
-
-            <h2>Estrutura Física</h2>
-            <p>Nossa escola conta com:</p>
-            <ul>
-                <li>Salas de aula equipadas</li>
-                <li>Laboratórios de informática e ciências</li>
-                <li>Biblioteca com acervo atualizado</li>
-                <li>Quadra poliesportiva</li>
-                <li>Área de convivência</li>
-                <li>Auditório para eventos</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2023 Escola Barbosa. Todos os direitos reservados.</p>
-        <p>Endereço: Rua da Educação, 123 - Centro - Cidade/Estado</p>
-        <p>Telefone: (00) 1234-5678 | Email: contato@escolabarbosa.edu.br</p>
-    </footer>
+  <footer class="footer">
+    <div class="container">
+      <small>&copy; 2025 Colégio Barbosa. Todos os direitos reservados.</small>
+    </div>
+  </footer>
 </body>
 </html>
