@@ -8,99 +8,122 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* --- Estilos básicos do chatbot --- */
+    /* Chatbot estilos */
     #chatbot {
       position: fixed;
       bottom: 20px;
       right: 20px;
       width: 320px;
-      max-height: 420px;
+      max-height: 450px;
       background: #111;
       border: 2px solid #00bfff;
-      border-radius: 10px;
+      border-radius: 12px;
       box-shadow: 0 0 15px #00bfff;
       display: flex;
       flex-direction: column;
       font-family: 'Barlow', sans-serif;
-      color: #eee;
-      overflow: hidden;
       z-index: 9999;
     }
-    #chatbot header {
-      background: #00bfff;
-      padding: 12px;
-      font-weight: 700;
-      font-size: 1.2rem;
-      text-align: center;
-      cursor: pointer;
-      user-select: none;
-    }
-    #chatbot .messages {
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-      background: #222;
-      font-size: 0.9rem;
-    }
-    #chatbot .messages .message {
-      margin-bottom: 10px;
-      max-width: 75%;
-      padding: 8px 12px;
-      border-radius: 15px;
-      clear: both;
-      opacity: 0;
-      animation: fadeInUp 0.3s forwards;
-    }
-    #chatbot .messages .user {
+    #chat-header {
       background: #00bfff;
       color: #000;
-      float: right;
-      border-bottom-right-radius: 0;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      user-select: none;
+      cursor: default;
+      text-align: center;
     }
-    #chatbot .messages .bot {
-      background: #444;
+    #chat-messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 12px 16px;
       color: #eee;
-      float: left;
+      font-size: 0.9rem;
+      background: #000;
+    }
+    .message {
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .message.bot {
+      justify-content: flex-start;
+    }
+    .message.user {
+      justify-content: flex-end;
+    }
+    .message .bubble {
+      max-width: 75%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      line-height: 1.3;
+      animation: fadeInUp 0.3s ease forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .message.bot .bubble {
+      background: #00bfff;
+      color: #000;
       border-bottom-left-radius: 0;
     }
-    #chatbot footer {
-      padding: 8px 10px;
-      background: #111;
-      display: flex;
-      border-top: 1px solid #00bfff;
-    }
-    #chatbot input[type="text"] {
-      flex: 1;
-      padding: 8px 12px;
-      border: none;
-      border-radius: 20px;
-      font-size: 1rem;
-      outline: none;
+    .message.user .bubble {
       background: #222;
-      color: #eee;
-    }
-    #chatbot button {
-      background: #00bfff;
-      border: none;
-      color: #000;
-      font-weight: 700;
-      padding: 0 15px;
-      margin-left: 10px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    #chatbot button:hover {
-      background: #008ccc;
+      color: #ddd;
+      border-bottom-right-radius: 0;
     }
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+    #chat-input-area {
+      display: flex;
+      border-top: 2px solid #00bfff;
+      background: #111;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      padding: 8px 12px;
+    }
+    #chat-input {
+      flex-grow: 1;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 20px;
+      font-size: 1rem;
+      background: #222;
+      color: #eee;
+      outline: none;
+      font-family: 'Barlow', sans-serif;
+    }
+    #chat-send {
+      background: #00bfff;
+      border: none;
+      color: #000;
+      font-weight: 700;
+      padding: 0 18px;
+      margin-left: 8px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #chat-send:hover {
+      background: #008fcc;
+    }
+    #chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+    #chat-messages::-webkit-scrollbar-thumb {
+      background: #00bfff;
+      border-radius: 3px;
+    }
+    @media (max-width: 400px) {
+      #chatbot {
+        width: 90vw;
+        max-height: 300px;
       }
     }
   </style>
@@ -205,23 +228,22 @@
     <div class="grid-3 shop-items">
       <div class="card item">
         <h3>Ingresso Festa Junina</h3>
-        <p>Entrada individual válida para 22 de junho.</p>
-        <p class="price">R$ 25,00</p>
-        <p class="price discount">R$ 30,00 (com desconto)</p>
+        <p>Entrada individual válida para 8 de junho.</p>
+        <p class="price">R$ 25,00 (desconto R$ 30,00)</p>
         <a href="#form-compra" class="btn">Comprar</a>
       </div>
 
       <div class="card item">
         <h3>Kit Quentão &amp; Pipoca</h3>
         <p>Caneca reutilizável + porção de pipoca.</p>
-        <p class="price">R$ 12,00</p>
+        <p class="price">R$ 12,00</p>
         <a href="#form-compra" class="btn">Comprar</a>
       </div>
 
       <div class="card item">
         <h3>Camiseta Oficial “Arraiá Barbosa”</h3>
-        <p>Algodão premium, tamanhos P ao GG.</p>
-        <p class="price">R$ 40,00</p>
+        <p>Algodão premium, tamanhos P ao GG.</p>
+        <p class="price">R$ 40,00</p>
         <a href="#form-compra" class="btn">Comprar</a>
       </div>
     </div>
@@ -232,32 +254,34 @@
           method="POST">
       <div class="field">
         <label for="nome">Nome Completo</label>
-        <input type="text" id="nome" name="Nome" required>
+        <input type="text" id="nome" name="Nome" required />
       </div>
 
       <div class="field">
         <label for="email">E‑mail</label>
-        <input type="email" id="email" name="Email" required>
+        <input type="email" id="email" name="Email" required />
       </div>
 
       <div class="field">
         <label for="produto">Produto</label>
         <select id="produto" name="Produto">
-          <option value="Ingresso Festa Junina">Ingresso Festa Junina – R$ 25,00</option>
-          <option value="Kit Quentão &amp; Pipoca">Kit Quentão &amp; Pipoca – R$ 12,00</option>
-          <option value="Camiseta Oficial">Camiseta Oficial – R$ 40,00</option>
+          <option value="Ingresso Festa Junina">Ingresso Festa Junina – R$ 25,00 (desconto R$ 30,00)</option>
+          <option value="Kit Quentão &amp; Pipoca">Kit Quentão &amp; Pipoca – R$ 12,00</option>
+          <option value="Camiseta Oficial">Camiseta Oficial – R$ 40,00</option>
         </select>
       </div>
 
       <div class="field">
         <label for="quantidade">Quantidade</label>
-        <input type="number" id="quantidade" name="Quantidade" min="1" value="1">
+        <input type="number" id="quantidade" name="Quantidade" min="1" value="1" />
       </div>
 
       <button type="submit" class="btn accent-fill">Enviar Pedido</button>
     </form>
 
-    <p class="contato">Dúvidas? Fale com a gente: <strong>nearneaj@gmail.com</strong> | Tel: <strong>43 96017-028</strong></p>
+    <p class="contato">
+      Dúvidas? Fale com a gente: <strong>nearneaj@gmail.com</strong> | Telefone: <strong>(43) 96017-028</strong>
+    </p>
   </section>
   <!-- /CENTRAL DE COMPRAS -->
 
@@ -268,103 +292,162 @@
   </footer>
 
   <!-- Chatbot -->
-  <div id="chatbot">
-    <header id="chatbot-header">Assistente Barbosa &#x25B2;</header>
-    <div class="messages" id="chatbot-messages"></div>
-    <footer>
-      <input type="text" id="chatbot-input" placeholder="Digite sua mensagem..." autocomplete="off" />
-      <button id="chatbot-send">Enviar</button>
-    </footer>
+  <div id="chatbot" aria-label="Assistente virtual Colégio Barbosa" role="complementary">
+    <div id="chat-header">Assistente Virtual Barbosa</div>
+    <div id="chat-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <form id="chat-form" autocomplete="off" aria-label="Formulário de chat">
+      <div id="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Digite sua mensagem..." aria-label="Campo para digitar mensagem" required />
+        <button type="submit" id="chat-send" aria-label="Enviar mensagem">Enviar</button>
+      </div>
+    </form>
   </div>
 
   <script>
     (function(){
-      const chatbot = document.getElementById('chatbot');
-      const header = document.getElementById('chatbot-header');
-      const messages = document.getElementById('chatbot-messages');
-      const input = document.getElementById('chatbot-input');
-      const sendBtn = document.getElementById('chatbot-send');
+      const chatForm = document.getElementById('chat-form');
+      const chatInput = document.getElementById('chat-input');
+      const chatMessages = document.getElementById('chat-messages');
 
-      // Toggle chat visibility
-      let open = true;
-      header.addEventListener('click', () => {
-        open = !open;
-        if(open){
-          chatbot.style.height = '420px';
-          messages.style.display = 'block';
-          input.style.display = 'inline-block';
-          sendBtn.style.display = 'inline-block';
-          header.innerHTML = 'Assistente Barbosa &#x25B2;';
-        } else {
-          chatbot.style.height = '40px';
-          messages.style.display = 'none';
-          input.style.display = 'none';
-          sendBtn.style.display = 'none';
-          header.innerHTML = 'Assistente Barbosa &#x25BC;';
-        }
-      });
-
-      // Scroll messages to bottom
-      function scrollToBottom(){
-        messages.scrollTop = messages.scrollHeight;
-      }
-
-      // Add message to chat
+      // Função para mostrar mensagens
       function addMessage(text, sender='bot'){
-        const msg = document.createElement('div');
-        msg.classList.add('message', sender);
-        msg.textContent = text;
-        messages.appendChild(msg);
-        scrollToBottom();
+        const messageElem = document.createElement('div');
+        messageElem.classList.add('message', sender);
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+        bubble.textContent = text;
+        messageElem.appendChild(bubble);
+        chatMessages.appendChild(messageElem);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
       }
 
-      // Bot responses simples
+      // Função para resposta do bot com muitas categorias e piadinhas
       function botResponse(text){
-        const msg = text.toLowerCase();
-        if(msg.includes('oi') || msg.includes('olá') || msg.includes('ola')){
-          return 'Olá! Como posso ajudar você hoje?';
+        const msg = text.toLowerCase().trim();
+
+        // Saudações
+        if(/^(oi|olá|ola|eae|opa|bom dia|boa tarde|boa noite|salve|fala|hey|hello)$/.test(msg)){
+          const greetings = [
+            'Olá! Como posso ajudar você hoje?',
+            'Oi! Em que posso ajudar?',
+            'Olá! Pergunte o que quiser sobre o Colégio Barbosa.',
+            'E aí! Pronto para aprender mais sobre nosso colégio?',
+            'Salve! Estou aqui para ajudar no que precisar.',
+          ];
+          return greetings[Math.floor(Math.random()*greetings.length)];
         }
+
+        // Ingresso
         if(msg.includes('ingresso')){
-          return 'O ingresso para a Festa Junina custa R$ 25,00 (R$ 30,00 com desconto).';
+          return 'O ingresso para a Festa Junina custa R$ 25,00 (desconto R$ 30,00). Garanta já o seu!';
         }
-        if(msg.includes('horário')){
-          return 'Nosso colégio funciona de segunda a sexta, das 7h às 17h.';
+
+        // Festa / Arraiá
+        if(msg.match(/festa|junina|arrai/)){
+          return 'Nossa Festa Junina será dia 8 de junho, começando às 18h. Vai ter quadrilha, comidas típicas e muita diversão!';
         }
-        if(msg.includes('contato') || msg.includes('telefone') || msg.includes('telefone')){
-          return 'Você pode nos contatar pelo e-mail nearneaj@gmail.com ou pelo telefone 43 96017-028.';
+
+        // Horário / funcionamento
+        if(msg.match(/horário|funciona|funcionamento|abre|fecha/)){
+          return 'O Colégio Barbosa funciona de segunda a sexta, das 7h às 17h.';
         }
-        if(msg.includes('festa') || msg.includes('junina')){
-          return 'Nossa Festa Junina é uma tradição anual com muita música, comida típica e diversão para toda a família!';
+
+        // Contato
+        if(msg.match(/contato|telefone|falar com|ligar|email|e-mail|gmail/)){
+          return 'Você pode nos contatar pelo e-mail nearneaj@gmail.com ou pelo telefone (43) 96017-028.';
         }
-        if(msg.includes('comprar')){
-          return 'Para comprar ingressos e produtos oficiais, vá até a seção "Central de Compras" nesta página.';
+
+        // Comprar / produtos / pedido
+        if(msg.match(/comprar|produto|pedido|ingressos|kit|camiseta/)){
+          return 'Para comprar ingressos e produtos oficiais, vá até a seção "Central de Compras" aqui na página.';
         }
-        return 'Desculpe, não entendi. Pode reformular sua pergunta?';
+
+        // Diretor
+        if(msg.match(/diretor|nome do diretor|quem é o diretor|quem dirige/)){
+          return 'O diretor do Colégio Barbosa é o Sr. Iva Pereira, um grande líder dedicado à educação.';
+        }
+
+        // Professores
+        if(msg.match(/professor|professores|quem são os professores|nomes dos professores/)){
+          return 'Temos uma equipe incrível de professores, incluindo a Giane, Burzuk, Lindo, Kleber e muitos outros profissionais qualificados.';
+        }
+
+        // Conversas casuais
+        if(msg.match(/como vai|tudo bem|beleza|como está|e aí|tudo certo|como você está|como tá/)){
+          const casualReplies = [
+            'Tudo ótimo, obrigado por perguntar!',
+            'Estou aqui para ajudar, e você?',
+            'Muito bem, e você?',
+            'Tudo tranquilo por aqui!',
+            'Curtindo o dia e pronto para te ajudar!',
+          ];
+          return casualReplies[Math.floor(Math.random()*casualReplies.length)];
+        }
+
+        // Parcerias
+        if(msg.match(/parceria|parceiros|trabalhar junto|colaborar|colaboração/)){
+          return 'Estamos sempre abertos a novas parcerias! Entre em contato pelo e-mail nearneaj@gmail.com para mais informações.';
+        }
+
+        // Perguntas pessoais sobre o bot
+        if(msg.match(/quem é você|seu nome|assistente|bot|quem criou você|você é inteligente/)){
+          return 'Eu sou o Assistente Virtual do Colégio Barbosa, criado para ajudar você com informações e tirar dúvidas.';
+        }
+
+        // Clima e tempo
+        if(msg.match(/clima|tempo|previsão/)){
+          return 'Hoje está um dia lindo para aprender! Aqui no colégio temos sempre um ambiente agradável.';
+        }
+
+        // Escola, aula, matéria
+        if(msg.match(/escola|aula|matéria|professor|ensino/)){
+          return 'Nosso corpo docente é altamente qualificado e dedicado a oferecer aulas de qualidade em várias áreas do conhecimento.';
+        }
+
+        // Férias, recesso, feriado
+        if(msg.match(/férias|recesso|feriado|folga/)){
+          return 'O calendário escolar inclui períodos de férias e recessos planejados para o descanso dos alunos e equipe.';
+        }
+
+        // Humor / piadas simples
+        if(msg.match(/piada|brincadeira|engraçado|humor/)){
+          const jokes = [
+            'Por que o livro de matemática se suicidou? Porque tinha muitos problemas. 😅',
+            'Qual é o cúmulo da rapidez? Fechar a gaveta antes da mãe pegar o dedo! 😂',
+            'O que o zero disse para o oito? Belo cinto! 😄',
+            'Por que a abelha sempre leva bronca? Porque vive fazendo zum-zum! 🐝',
+          ];
+          return jokes[Math.floor(Math.random()*jokes.length)];
+        }
+
+        // Elogios
+        if(msg.match(/obrigado|valeu|legal|bacana|bom trabalho|parabéns|ótimo/)){
+          const thanks = [
+            'De nada! Estou sempre por aqui.',
+            'Que bom que gostou! 😊',
+            'Obrigado, você também é demais!',
+            'Fico feliz em ajudar!',
+          ];
+          return thanks[Math.floor(Math.random()*thanks.length)];
+        }
+
+        // Perguntas desconhecidas
+        return 'Desculpe, não entendi muito bem. Pode tentar reformular sua pergunta? Estou aqui para ajudar!';
       }
 
-      // Enviar mensagem
-      function sendMessage(){
-        const userText = input.value.trim();
-        if(userText === '') return;
+      chatForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const userText = chatInput.value.trim();
+        if(!userText) return;
         addMessage(userText, 'user');
-        input.value = '';
-        // Simula resposta com delay pra parecer mais natural
+        chatInput.value = '';
+        
+        // Simular resposta do bot com delay
         setTimeout(() => {
           const response = botResponse(userText);
           addMessage(response, 'bot');
         }, 600);
-      }
-
-      sendBtn.addEventListener('click', sendMessage);
-      input.addEventListener('keypress', e => {
-        if(e.key === 'Enter'){
-          sendMessage();
-        }
       });
-
-      // Mensagem inicial do bot
-      addMessage('Olá! Eu sou o assistente do Colégio Barbosa. Pergunte algo ou diga "Oi".', 'bot');
-
     })();
   </script>
 </body>
